@@ -1,4 +1,4 @@
-﻿# Written by Rishi 
+# Written by Rishi 
 # Completed on 7 July, 2020
 
 import math
@@ -7,7 +7,10 @@ from time import sleep
 from tkinter.__init__ import Tk, Button, Label, Frame, StringVar, BooleanVar, Menubutton, Menu, Toplevel
 from tkinter.constants import *
 
-from playsound import playsound
+from playsound import playsound #pip install playsound
+#uncomment next 2 lines if you don't have playsound
+#import os
+#os.system('pip install playsound')
 
 fact = math.factorial
 rad = math.radians
@@ -75,9 +78,6 @@ def LCM(*numbers):
         return numbers[0]
 
 
-
-
-
 class Window(Tk):
     def __init__(self):
         self.modes = ['Basic ', 'Advanced ']
@@ -126,7 +126,7 @@ class Window(Tk):
         self.window.resizable(1, 1)
 
         self.window.title('Calculator')
-        self.window.iconbitmap('resources/icon.ico')
+        self.window.iconbitmap('icon.ico')
 
         self.current_mode = StringVar()
         self.current_mode.set('Basic ')
@@ -203,7 +203,7 @@ class Window(Tk):
 
     def play_click_sound(self):
         if self.click_sound_enabled.get():
-            Thread(target=lambda: playsound('resources/mouse_click.aif')).start()
+            Thread(target=lambda: playsound('mouse_click.aif')).start()
 
     def always_on_top_control(self):
         if self.always_on_top.get():
