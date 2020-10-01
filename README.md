@@ -1,5 +1,5 @@
 # Calculator
-A minimalist Calculator
+A minimalist Calculator by Rishi
 
 # About Developer
  Rishi Vishwakarma,
