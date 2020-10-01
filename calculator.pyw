@@ -7,10 +7,12 @@ from time import sleep
 from tkinter.__init__ import Tk, Button, Label, Frame, StringVar, BooleanVar, Menubutton, Menu, Toplevel
 from tkinter.constants import *
 
-from playsound import playsound #pip install playsound
-#uncomment next 2 lines if you don't have playsound
-#import os
-#os.system('pip install playsound')
+try:
+    from playsound import playsound
+except ModuleNotFoundError:
+    import os
+    os.system('python -m pip install playsound')
+    from playsound import playsound
 
 fact = math.factorial
 rad = math.radians
@@ -78,7 +80,7 @@ def LCM(*numbers):
         return numbers[0]
 
 
-class Window(Tk):
+class App(Tk):
     def __init__(self):
         self.modes = ['Basic ', 'Advanced ']
         self.columns = [0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -181,22 +183,12 @@ class Window(Tk):
 
         self.column_creator(0, 4)
         self.button_creator(0, 4)
-
-    def handle_events_and_run(self):
-        self.change_mode()
-        self.button_click_control()
-        self.hover_control()
-        self.key_press_handler()
-        self.window_updater()
-
-        self.window.mainloop()
-
+        
     def window_updater(self):
         def update_window():
             while True:
                 self.window.update()
                 sleep(.1)
-
         self.updater = Thread(target=update_window)
         self.updater.daemon = True
         self.updater.start()
@@ -526,8 +518,15 @@ class Window(Tk):
         self.window.bind('<Tab>', self.change_mode)
         self.window.bind('<Control-x>', lambda event: self.window.destroy())
         self.window.bind('<Escape>', lambda event: self.window.destroy())
+    
+    def run(self):
+        self.create_layout()
+        self.change_mode()
+        self.button_click_control()
+        self.hover_control()
+        self.key_press_handler()
+        self.window_updater()
+        self.window.mainloop()
 
-
-calculator = Window()
-calculator.create_layout()
-calculator.handle_events_and_run()
+calculator = App()
+calculator.run()
